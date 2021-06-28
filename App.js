@@ -1,21 +1,66 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+//template
+import { Provider as PaperProvider } from 'react-native-paper';
+import Theme from './config/Theme';
+
+//navigation
+import LoginScreen from './screen/LoginScreen';
+import AnggotaNav from './navigation/AnggotaNav';
+import PetugasNav from './navigation/PetugasNav';
+
+//storeApp
+import storeApp from './config/storeApp';
+
+class App extends React.Component {
+	constructor(props) {
+	  super(props);
+
+	  //get redux variable
+	  this.state = storeApp.getState();  
+	  storeApp.subscribe(()=>{
+	    this.setState(storeApp.getState());
+	  });
+
+	  this.state = {
+	    ...this.state,
+	  };
+	}
+
+	render() {
+
+		//sudah login
+		if(this.state.isLogin == true) {
+
+			//login anggota
+			if(this.state.user_type == 'anggota') {
+				return (
+						<PaperProvider theme={Theme}>
+							<AnggotaNav />
+						</PaperProvider>
+					)
+			
+			//login petugas
+			} else {
+				return (
+						<PaperProvider theme={Theme}>
+							<PetugasNav />
+						</PaperProvider>
+					)
+
+			}
+		
+		//belum login
+		} else {
+			return (
+				<PaperProvider theme={Theme}>
+					<LoginScreen />
+				</PaperProvider>
+			)
+		}
+		
+	}
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
