@@ -43,7 +43,7 @@ class HomeScreen extends Component {
       this.setState({isLoading:true});
 
       //api url & parameter
-      let apiurl = BaseUrl()+'/output/rekap_peminjaman_perhari';
+      let apiurl = BaseUrl()+'/laporan/rekap_peminjaman_perhari';
       const options = {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
@@ -119,8 +119,8 @@ class HomeScreen extends Component {
               </DataTable.Header>
 
               {/*loop data state*/}
-              {this.state.data && this.state.data.map((row) => (
-                <DataTable.Row>
+              {this.state.data && this.state.data.map((row, key) => (
+                <DataTable.Row key={key}>
                   <DataTable.Cell>{dateFormatDB(row.tanggal_pinjam)}</DataTable.Cell>
                   <DataTable.Cell numeric>{row.total_pinjam} Data</DataTable.Cell>
                 </DataTable.Row>

@@ -108,8 +108,8 @@ class ReportSummaryScreen extends Component {
             </DataTable.Header>
 
             {/*loop data state*/}
-            {this.state.data && this.state.data.map((row) => (
-              <DataTable.Row>
+            {this.state.data && this.state.data.map((row, key) => (
+              <DataTable.Row key={key}>
                 <DataTable.Cell>{row.nama}</DataTable.Cell>
                 <DataTable.Cell numeric>{row.total_buku}</DataTable.Cell>
               </DataTable.Row>

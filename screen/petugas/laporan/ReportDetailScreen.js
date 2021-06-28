@@ -157,8 +157,8 @@ class ReportDetailScreen extends Component {
             </DataTable.Header>
             
             {/*loop data state*/}
-            {this.state.data && this.state.data.map((row) => (
-              <DataTable.Row>
+            {this.state.data && this.state.data.map((row, key) => (
+              <DataTable.Row key={key}>
                 <DataTable.Cell>{row.nama_anggota}</DataTable.Cell>
                 <DataTable.Cell>{row.nama_petugas}</DataTable.Cell>
                 <DataTable.Cell>{dateFormatDB(row.tanggal_pinjam)}</DataTable.Cell>
