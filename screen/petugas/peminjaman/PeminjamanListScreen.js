@@ -53,7 +53,6 @@ class PeminjamanListScreen extends Component {
 
       //response dari api
       .then(responseData => {
-          console.log('response', this.state.petugas_id)
           //menangkap response api
           let data = responseData.data;
 

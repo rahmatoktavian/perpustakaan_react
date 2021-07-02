@@ -1,10 +1,11 @@
+import React, { Component } from 'react';
 import { View, Alert } from 'react-native';
 import { Provider as PaperProvider, Appbar, Button, TextInput, Portal, Modal, ActivityIndicator } from 'react-native-paper';
 
-import BaseUrl from '../config/BaseUrl';
-import Theme from '../config/Theme';
-import storeApp from '../config/storeApp';
-import Loading from '../component/Loading';
+import BaseUrl from '../../config/BaseUrl';
+import Theme from '../../config/Theme';
+import storeApp from '../../config/storeApp';
+import Loading from '../../component/Loading';
 
 class LoginScreen extends Component {
 
@@ -87,7 +88,7 @@ class LoginScreen extends Component {
             label="Username"
             value={this.state.username}
             onChangeText={text => this.setState({username:text})}
-            style={{marginHorizontal:10, backgroundColor:'white'}}
+            style={{marginHorizontal:10}}
           />
 
           <TextInput
@@ -95,7 +96,7 @@ class LoginScreen extends Component {
             value={this.state.password}
             onChangeText={text => this.setState({password:text})}
             secureTextEntry={true}
-            style={{marginHorizontal:10, backgroundColor:'white'}}
+            style={{marginHorizontal:10}}
           />
 
           <Button 
@@ -105,6 +106,15 @@ class LoginScreen extends Component {
               style={{margin:10}}
           >
             Login
+          </Button>
+
+          <Button 
+              mode="outlined" 
+              icon="login" 
+              onPress={() => this.props.navigation.navigate('RegisterAnggotaScreen')}
+              style={{margin:10}}
+          >
+            Register Anggota
           </Button>
 
           <Loading isLoading={this.state.isLoading} />

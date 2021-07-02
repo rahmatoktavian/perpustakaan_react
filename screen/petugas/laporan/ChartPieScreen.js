@@ -34,6 +34,14 @@ class ChartPieScreen extends Component {
     return randomColor;
   }
 
+  getChartColor(index) {
+    let chartColorList = ['#4572A7', '#AA4643', '#89A54E', '#80699B', '#3D96AE',
+        '#DB843D', '#92A8CD', '#A47D7C', '#B5CA92'];
+
+    let chartColor = chartColorList[index];
+    return chartColor;
+  }
+
   async getData() {
       this.setState({isLoading:true});
 
@@ -55,11 +63,11 @@ class ChartPieScreen extends Component {
 
           //convert data api menjadi format chart
           let piechart_data = [];
-          data.map(row => {
+          data.map((row, index) => {
             piechart_data.push({
               name: row.nama,
-              value: row.total_buku,
-              color: this.getRandomColor(),
+              value: parseInt(row.total_buku),
+              color: this.getChartColor(index),
               legendFontColor: "#7F7F7F",
             })
           })

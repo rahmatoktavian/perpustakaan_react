@@ -6,7 +6,7 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import Theme from './config/Theme';
 
 //navigation
-import LoginScreen from './screen/LoginScreen';
+import AuthNav from './navigation/AuthNav';
 import AnggotaNav from './navigation/AnggotaNav';
 import PetugasNav from './navigation/PetugasNav';
 
@@ -55,7 +55,7 @@ class App extends React.Component {
 		} else {
 			return (
 				<PaperProvider theme={Theme}>
-					<LoginScreen />
+					<AuthNav />
 				</PaperProvider>
 			)
 		}
