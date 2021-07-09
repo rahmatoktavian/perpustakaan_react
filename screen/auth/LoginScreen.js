@@ -28,7 +28,6 @@ class LoginScreen extends Component {
   }
 
   componentDidMount() {
-    //console.log(this.state)
   }
 
   //memanggil api untuk menyimpan data

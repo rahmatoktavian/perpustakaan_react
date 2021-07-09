@@ -24,10 +24,8 @@ class PeminjamanSayaScreen extends Component {
         ...this.state,
       };
   }
-
+  
   componentDidMount() {
-      this.getData();
-
       this._unsubscribe = this.props.navigation.addListener('focus', () => {
         this.getData();
       });

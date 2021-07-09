@@ -38,9 +38,6 @@ class ReportDetailScreen extends Component {
   }
 
   componentDidMount() {
-      this.getData();
-      this.getPetugasData();
-
       this._unsubscribe = this.props.navigation.addListener('focus', () => {
         this.getData();
       });
