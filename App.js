@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
+import FlashMessage from "react-native-flash-message";
 
 //template
 import { Provider as PaperProvider } from 'react-native-paper';
@@ -18,7 +19,7 @@ class App extends React.Component {
 	  super(props);
 
 	  //get redux variable
-	  this.state = storeApp.getState();  
+	  this.state = storeApp.getState();
 	  storeApp.subscribe(()=>{
 	    this.setState(storeApp.getState());
 	  });
@@ -38,28 +39,31 @@ class App extends React.Component {
 				return (
 						<PaperProvider theme={Theme}>
 							<AnggotaNav />
+							<FlashMessage position="top" style={{marginTop:30}} />
 						</PaperProvider>
 					)
-			
+
 			//login petugas
 			} else {
 				return (
 						<PaperProvider theme={Theme}>
 							<PetugasNav />
+							<FlashMessage position="top" style={{marginTop:30}} />
 						</PaperProvider>
 					)
 
 			}
-		
+
 		//belum login
 		} else {
 			return (
 				<PaperProvider theme={Theme}>
 					<AuthNav />
+					<FlashMessage position="top" style={{marginTop:30}} />
 				</PaperProvider>
 			)
 		}
-		
+
 	}
 }
 

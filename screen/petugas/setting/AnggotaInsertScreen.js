@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Alert } from 'react-native';
 import { Provider as PaperProvider, Appbar, Button, TextInput, Portal, Modal, ActivityIndicator, } from 'react-native-paper';
+import { showMessage } from "react-native-flash-message";
 
 import BaseUrl from '../../../config/BaseUrl';
 import Theme from '../../../config/Theme';
@@ -49,13 +50,12 @@ class AnggotaInsertScreen extends Component {
           this.setState({isLoading:false});
 
           //menampilkan response message
-          Alert.alert(
-            "Pemberitahuan",
-            responseData.message,
-            [
-              { text: "OK", onPress: () => this.props.navigation.navigate('AnggotaListScreen') }
-            ]
-          );
+          showMessage({
+	          message: responseData.message,
+            type: responseData.status ? 'success' : 'danger',
+	          icon: responseData.status ? 'success' : 'danger',
+	        });
+          this.props.navigation.navigate('AnggotaListScreen');
       })
   }
 
@@ -89,9 +89,9 @@ class AnggotaInsertScreen extends Component {
             style={{margin:10}}
           />
 
-          <Button 
-              mode="contained" 
-              icon="check" 
+          <Button
+              mode="contained"
+              icon="check"
               onPress={() => this.onInsert()}
               style={{margin:10}}
           >

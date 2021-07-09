@@ -14,7 +14,7 @@ class SettingScreen extends Component {
       return (
         <PaperProvider theme={Theme}>
           <Appbar.Header>
-            <Appbar.Content title="Output" />
+            <Appbar.Content title="Setting" />
           </Appbar.Header>
 
           <ScrollView>

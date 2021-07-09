@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Alert, ScrollView } from 'react-native';
 import { Provider as PaperProvider, Appbar, Button, TextInput, Portal, Modal, ActivityIndicator, HelperText } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
+import { showMessage } from "react-native-flash-message";
 
 import BaseUrl from '../../../config/BaseUrl';
 import Theme from '../../../config/Theme';
@@ -40,7 +41,7 @@ class BukuInsertScreen extends Component {
       .then(response => {return response.json()})
 
       //response dari api
-      .then(responseData => { 
+      .then(responseData => {
           //menangkap response api
           let data = responseData.data;
 
@@ -76,13 +77,12 @@ class BukuInsertScreen extends Component {
           this.setState({isLoading:false});
 
           //menampilkan response message
-          Alert.alert(
-            "Pemberitahuan",
-            responseData.message,
-            [
-              { text: "OK", onPress: () => this.props.navigation.navigate('BukuListScreen') }
-            ]
-          );
+          showMessage({
+	          message: responseData.message,
+            type: responseData.status ? 'success' : 'danger',
+	          icon: responseData.status ? 'success' : 'danger',
+	        });
+          this.props.navigation.navigate('BukuListScreen');
       });
   }
 
@@ -125,16 +125,16 @@ class BukuInsertScreen extends Component {
               style={{margin:10}}
             />
 
-            <Button 
-                mode="contained" 
-                icon="check" 
+            <Button
+                mode="contained"
+                icon="check"
                 onPress={() => this.onInsert()}
                 style={{margin:10}}
             >
               Simpan
             </Button>
           </ScrollView>
-          
+
           <Portal>
             <Modal visible={this.state.isLoading}>
               <ActivityIndicator akategori_idating={true} size="large" color={Theme.colors.primary} />

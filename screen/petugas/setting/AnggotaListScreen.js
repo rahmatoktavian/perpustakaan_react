@@ -33,7 +33,7 @@ class AnggotaListScreen extends Component {
       this.setState({isLoading:true});
 
       //api url & parameter
-      let apiurl = BaseUrl()+'/anggota';
+      let apiurl = BaseUrl()+'/anggota/';
       const options = {
           method: 'GET',
           headers: {'Content-Type': 'application/json'},

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Alert } from 'react-native';
 import { Provider as PaperProvider, Appbar, Button, TextInput, Portal, Modal, ActivityIndicator } from 'react-native-paper';
+import { showMessage } from "react-native-flash-message";
 
 import BaseUrl from '../../config/BaseUrl';
 import Theme from '../../config/Theme';
@@ -13,7 +14,7 @@ class LoginScreen extends Component {
       super(props);
 
       //redux variable
-      this.state = storeApp.getState();  
+      this.state = storeApp.getState();
       storeApp.subscribe(()=>{
         this.setState(storeApp.getState());
       });
@@ -57,13 +58,19 @@ class LoginScreen extends Component {
 
           //menangkap response api
           let status = responseData.status;
-          
+
           //jika login valid
           if(status == true) {
 
             //response api (data user)
             let data = responseData.data;
-            
+
+            showMessage({
+  	          message: responseData.message,
+              type: 'success',
+  	          icon: 'success'
+  	        });
+
             //update redux
             storeApp.dispatch({
                 type: 'LOGIN',
@@ -72,7 +79,11 @@ class LoginScreen extends Component {
 
           //jika login tidak valid
           } else {
-            alert(responseData.message)
+            showMessage({
+  	          message: responseData.message,
+              type: 'danger',
+  	          icon: 'danger'
+  	        });
           }
       })
   }
@@ -99,18 +110,18 @@ class LoginScreen extends Component {
             style={{marginHorizontal:10}}
           />
 
-          <Button 
-              mode="contained" 
-              icon="login" 
+          <Button
+              mode="contained"
+              icon="login"
               onPress={() => this.onLogin()}
               style={{margin:10}}
           >
             Login
           </Button>
 
-          <Button 
-              mode="outlined" 
-              icon="login" 
+          <Button
+              mode="outlined"
+              icon="login"
               onPress={() => this.props.navigation.navigate('RegisterAnggotaScreen')}
               style={{margin:10}}
           >

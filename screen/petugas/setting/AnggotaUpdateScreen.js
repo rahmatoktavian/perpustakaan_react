@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Alert } from 'react-native';
 import { Provider as PaperProvider, Appbar, Button, TextInput, Portal, Modal, ActivityIndicator, } from 'react-native-paper';
+import { showMessage } from "react-native-flash-message";
 
 import BaseUrl from '../../../config/BaseUrl';
 import Theme from '../../../config/Theme';
@@ -39,15 +40,15 @@ class AnggotaUpdateScreen extends Component {
       .then(response => {return response.json()})
 
       //response dari api
-      .then(responseData => { 
+      .then(responseData => {
           //menangkap response api
           let data = responseData.data;
-   
+
           //memasukan respon ke state untuk loop data di render
           this.setState({
               nim: data.nim,
               nama: data.nama,
-              jurusan: data.jurusan, 
+              jurusan: data.jurusan,
               isLoading:false
             });
       })
@@ -80,13 +81,20 @@ class AnggotaUpdateScreen extends Component {
           this.setState({isLoading:false});
 
           //menampilkan response message
-          Alert.alert(
+          /*Alert.alert(
             "Pemberitahuan",
             responseData.message,
             [
               { text: "OK", onPress: () => this.props.navigation.navigate('AnggotaListScreen') }
             ]
-          );
+          );*/
+
+          showMessage({
+	          message: responseData.message,
+            type: responseData.status ? 'success' : 'danger',
+	          icon: responseData.status ? 'success' : 'danger',
+	        });
+          this.props.navigation.navigate('AnggotaListScreen');
       })
   }
 
@@ -94,7 +102,7 @@ class AnggotaUpdateScreen extends Component {
     Alert.alert(
       "Perhatian",
       "Data akan dihapus",
-      [ 
+      [
         { text: "Batal" },
         { text: "OK", onPress: () => this.onDelete() }
       ]
@@ -106,7 +114,7 @@ class AnggotaUpdateScreen extends Component {
 
       //api url
       let apiurl = BaseUrl()+'/anggota/delete/?nim='+this.props.route.params.nim;
-      
+
       //menyiapkan data untuk dikirim ke server api
       const options = {
           method: 'GET',
@@ -122,13 +130,12 @@ class AnggotaUpdateScreen extends Component {
           this.setState({isLoading:false});
 
           //menampilkan response message
-          Alert.alert(
-            "Pemberitahuan",
-            responseData.message,
-            [
-              { text: "OK", onPress: () => this.props.navigation.navigate('AnggotaListScreen') }
-            ]
-          );
+          showMessage({
+            message: responseData.message,
+            type: responseData.status ? 'success' : 'danger',
+            icon: responseData.status ? 'success' : 'danger',
+          });
+          this.props.navigation.navigate('AnggotaListScreen');
       })
   }
 
@@ -164,9 +171,9 @@ class AnggotaUpdateScreen extends Component {
             style={{margin:10}}
           />
 
-          <Button 
-              mode="contained" 
-              icon="check" 
+          <Button
+              mode="contained"
+              icon="check"
               onPress={() => this.onUpdate()}
               style={{margin:10}}
           >

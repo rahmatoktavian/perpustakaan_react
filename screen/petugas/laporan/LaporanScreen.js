@@ -14,7 +14,7 @@ class LaporanScreen extends Component {
       return (
         <PaperProvider theme={Theme}>
           <Appbar.Header>
-            <Appbar.Content title="Output" />
+            <Appbar.Content title="Laporan" />
           </Appbar.Header>
 
           <ScrollView>

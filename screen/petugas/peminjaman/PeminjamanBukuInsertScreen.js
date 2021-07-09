@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Alert } from 'react-native';
 import { Provider as PaperProvider, Appbar, Button, TextInput, Portal, Modal, ActivityIndicator, } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
+import { showMessage } from "react-native-flash-message";
 
 import BaseUrl from '../../../config/BaseUrl';
 import Theme from '../../../config/Theme';
@@ -74,13 +75,12 @@ class PeminjamanBukuInsertScreen extends Component {
           this.setState({isLoading:false});
 
           //menampilkan response message
-          Alert.alert(
-            "Pemberitahuan",
-            responseData.message,
-            [
-              { text: "OK", onPress: () => this.props.navigation.navigate('PeminjamanBukuListScreen', {peminjaman_id: this.state.peminjaman_id}) }
-            ]
-          );
+          showMessage({
+	          message: responseData.message,
+            type: responseData.status ? 'success' : 'danger',
+	          icon: responseData.status ? 'success' : 'danger',
+	        });
+          this.props.navigation.navigate('AnggotaListScreen');
       });
   }
 
@@ -142,18 +142,18 @@ class PeminjamanBukuInsertScreen extends Component {
             {/*end loop*/}
           </Picker>
 
-          <Button 
-              mode="contained" 
-              icon="check" 
+          <Button
+              mode="contained"
+              icon="check"
               onPress={() => this.onInsert()}
               style={{margin:10}}
           >
             Simpan
           </Button>
 
-          <Button 
-              mode="contained" 
-              icon="check" 
+          <Button
+              mode="contained"
+              icon="check"
               onPress={() => this.onInsertTrans()}
               style={{margin:10}}
           >

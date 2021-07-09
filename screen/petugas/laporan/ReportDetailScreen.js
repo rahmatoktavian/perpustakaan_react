@@ -30,6 +30,8 @@ class ReportDetailScreen extends Component {
 
         petugas_id: '',
         nama_anggota: '',
+
+        //default: tanggal hari ini
         tanggal_pinjam_mulai: new Date(),
         tanggal_pinjam_akhir: new Date(),
       }
@@ -134,7 +136,10 @@ class ReportDetailScreen extends Component {
   }
 
   onFilter() {
+    //nutup portal
     this.setState({displayFilter:false});
+
+    //refresh data laporan
     this.getData();
   }
 
@@ -148,6 +153,8 @@ class ReportDetailScreen extends Component {
           </Appbar.Header>
 
           <ScrollView>
+
+          {/*table versi android*/}
           <DataTable>
             <DataTable.Header>
               <DataTable.Title>Anggota</DataTable.Title>
@@ -225,7 +232,7 @@ class ReportDetailScreen extends Component {
                       />
                   )}
 
-                  {/*petugas*/}
+                  {/*anggota*/}
                   <TextInput
                     label="Nama Anggota"
                     value={this.state.nama_anggota}

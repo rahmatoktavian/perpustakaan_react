@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Alert, ScrollView } from 'react-native';
 import { Provider as PaperProvider, Appbar, Button, TextInput, HelperText, Portal, Modal, ActivityIndicator } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
+import { showMessage } from "react-native-flash-message";
 
 import BaseUrl from '../../config/BaseUrl';
 import Theme from '../../config/Theme';
@@ -14,7 +15,7 @@ class RegisterAnggotaScreen extends Component {
       super(props);
 
       //redux variable
-      this.state = storeApp.getState();  
+      this.state = storeApp.getState();
       storeApp.subscribe(()=>{
         this.setState(storeApp.getState());
       });
@@ -71,13 +72,13 @@ class RegisterAnggotaScreen extends Component {
 
           //menangkap response api
           let status = responseData.status;
-          
+
           //jika login valid
           if(status == true) {
 
             //response api (data user)
             let data = responseData.data;
-            
+
             //menampilkan response message
             Alert.alert(
               "Pemberitahuan",
@@ -90,7 +91,11 @@ class RegisterAnggotaScreen extends Component {
 
           //jika login tidak valid
           } else {
-            alert(responseData.message)
+            showMessage({
+  	          message: responseData.message,
+              type: 'danger',
+  	          icon: 'danger',
+  	        });
           }
       })
   }
@@ -155,9 +160,9 @@ class RegisterAnggotaScreen extends Component {
               {/*end loop*/}
             </Picker>
 
-          <Button 
-              mode="contained" 
-              icon="check" 
+          <Button
+              mode="contained"
+              icon="check"
               onPress={() => this.onRegister()}
               style={{margin:10}}
           >
