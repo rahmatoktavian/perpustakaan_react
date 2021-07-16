@@ -26,6 +26,7 @@ class PeminjamanListScreen extends Component {
   }
 
   componentDidMount() {
+    console.log('petugas_id', this.state.petugas_id)
       this._unsubscribe = this.props.navigation.addListener('focus', () => {
         this.getData();
       });
@@ -88,7 +89,7 @@ class PeminjamanListScreen extends Component {
           <Button 
               mode="contained" 
               icon="plus" 
-              onPress={() => this.props.navigation.navigate('PeminjamanInsertScreen')}
+              onPress={() => this.props.navigation.navigate('PeminjamanInsertMapScreen')}
               style={{margin:20}}
           >
             Insert Peminjaman

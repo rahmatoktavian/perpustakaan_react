@@ -61,13 +61,17 @@ class ChartPieScreen extends Component {
 
           //convert data api menjadi format chart
           let piechart_data = [];
+          //looping dari data api
           data.map((row, index) => {
+
+            //masukin data api ke format pie chart
             piechart_data.push({
               name: row.nama,
               value: parseInt(row.total_buku),
               color: this.getChartColor(index),
               legendFontColor: "#7F7F7F",
             })
+            
           })
 
           //memasukan respon ke state untuk chart

@@ -48,6 +48,7 @@ class ReportSummaryScreen extends Component {
           //menangkap response api
           let data = responseData.data;
 
+          //looping untuk menghitung total
           let total = 0;
           data.map(row => {
             total += parseInt(row.total_buku);

@@ -23,6 +23,8 @@ import PeminjamanBukuListScreen from '../screen/petugas/peminjaman/PeminjamanBuk
 import PeminjamanBukuInsertScreen from '../screen/petugas/peminjaman/PeminjamanBukuInsertScreen';
 import PeminjamanBukuInsertBarcodeScreen from '../screen/petugas/peminjaman/PeminjamanBukuInsertBarcodeScreen';
 
+import PeminjamanInsertMapScreen from '../screen/petugas/peminjaman/PeminjamanInsertMapScreen';
+
 //laporan
 import LaporanScreen from '../screen/petugas/laporan/LaporanScreen';
 import ChartPieScreen from '../screen/petugas/laporan/ChartPieScreen';
@@ -88,6 +90,12 @@ export default function PetugasNav() {
 				                <Stack.Screen 
 				                  name="PeminjamanBukuInsertBarcodeScreen"
 				                  component={PeminjamanBukuInsertBarcodeScreen}
+				                  options={{headerShown:false}}
+				                />
+
+				                <Stack.Screen 
+				                  name="PeminjamanInsertMapScreen"
+				                  component={PeminjamanInsertMapScreen}
 				                  options={{headerShown:false}}
 				                />
 										</Stack.Navigator>
