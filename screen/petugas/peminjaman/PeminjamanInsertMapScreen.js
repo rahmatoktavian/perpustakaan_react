@@ -29,8 +29,8 @@ class PeminjamanInsertScreen extends React.Component {
 
       this.state = {
           ...this.state,
-          latitude: this.props.route.params.latitude,
-          longitude: this.props.route.params.longitude,
+          latitude: parseFloat(this.props.route.params.latitude),
+          longitude: parseFloat(this.props.route.params.longitude),
 
           listMarker: [],
           markerDetail: [],
@@ -50,7 +50,7 @@ class PeminjamanInsertScreen extends React.Component {
     let currLongitude = this.props.route.params.longitude;
 
     let listMarker = [];
-    console.log('currLatitude', currLatitude)
+
     //marker lokasi handphone (marker biru)
     listMarker.push({title: 'Lokasi Saya', location:{latitude:currLatitude, longitude:currLongitude}, currLocation:true});
 
@@ -91,10 +91,6 @@ class PeminjamanInsertScreen extends React.Component {
   onViewDistance() {
     let location = this.state.markerDetail.location;
     Linking.openURL('http://www.google.com/maps/place/'+location.latitude+','+location.longitude);
-  }
-
-  onLogout() {
-    this.props.navigation.navigate('Login');
   }
 
   //memanggil api untuk menyimpan data

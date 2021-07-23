@@ -71,7 +71,7 @@ class PeminjamanListScreen extends Component {
       let currLocation = await Location.getCurrentPositionAsync({});
       let currLatitude = currLocation.coords.latitude;
       let currLongitude = currLocation.coords.longitude;
-
+      
       this.props.navigation.navigate('PeminjamanInsertMapScreen', {latitude: currLatitude, longitude: currLongitude});
     }
 
