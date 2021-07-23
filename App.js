@@ -1,5 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
+import { LogBox } from 'react-native';
 import FlashMessage from "react-native-flash-message";
 
 //template
@@ -13,6 +13,8 @@ import PetugasNav from './navigation/PetugasNav';
 
 //storeApp
 import storeApp from './config/storeApp';
+
+LogBox.ignoreAllLogs();
 
 class App extends React.Component {
 	constructor(props) {
@@ -39,7 +41,7 @@ class App extends React.Component {
 				return (
 						<PaperProvider theme={Theme}>
 							<AnggotaNav />
-							<FlashMessage position="top" style={{marginTop:30}} />
+							<FlashMessage position="top" style={{marginTop:15}} />
 						</PaperProvider>
 					)
 
@@ -48,7 +50,7 @@ class App extends React.Component {
 				return (
 						<PaperProvider theme={Theme}>
 							<PetugasNav />
-							<FlashMessage position="top" style={{marginTop:30}} />
+							<FlashMessage position="top" style={{marginTop:15}} />
 						</PaperProvider>
 					)
 
@@ -59,7 +61,7 @@ class App extends React.Component {
 			return (
 				<PaperProvider theme={Theme}>
 					<AuthNav />
-					<FlashMessage position="top" style={{marginTop:30}} />
+					<FlashMessage position="top" style={{marginTop:15}} />
 				</PaperProvider>
 			)
 		}

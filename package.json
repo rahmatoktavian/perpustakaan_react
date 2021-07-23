@@ -21,6 +21,7 @@
     "expo": "~41.0.1",
     "expo-barcode-scanner": "~10.1.2",
     "expo-file-system": "~11.0.2",
+    "expo-image-picker": "~10.1.4",
     "expo-linking": "~2.2.3",
     "expo-location": "~12.0.4",
     "expo-print": "~10.1.0",

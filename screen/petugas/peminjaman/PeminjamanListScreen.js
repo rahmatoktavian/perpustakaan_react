@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, ScrollView } from 'react-native';
 import { Provider as PaperProvider, Appbar, List, Portal, Modal, ActivityIndicator, Button, IconButton } from 'react-native-paper';
+import * as Location from 'expo-location';
 
 import BaseUrl from '../../../config/BaseUrl';
 import Theme from '../../../config/Theme';
@@ -13,7 +14,7 @@ class PeminjamanListScreen extends Component {
       super(props);
 
       //get redux variable
-      this.state = storeApp.getState();  
+      this.state = storeApp.getState();
       storeApp.subscribe(()=>{
         this.setState(storeApp.getState());
       });
@@ -26,7 +27,6 @@ class PeminjamanListScreen extends Component {
   }
 
   componentDidMount() {
-    console.log('petugas_id', this.state.petugas_id)
       this._unsubscribe = this.props.navigation.addListener('focus', () => {
         this.getData();
       });
@@ -60,6 +60,24 @@ class PeminjamanListScreen extends Component {
       })
   }
 
+  async onInsertMap() {
+    this.setState({isLoading:true});
+
+    let {status} = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      alert('Permission to access location was denied');
+    } else {
+      //mengampil lokasi (latitude & longitude)
+      let currLocation = await Location.getCurrentPositionAsync({});
+      let currLatitude = currLocation.coords.latitude;
+      let currLongitude = currLocation.coords.longitude;
+
+      this.props.navigation.navigate('PeminjamanInsertMapScreen', {latitude: currLatitude, longitude: currLongitude});
+    }
+
+    this.setState({isLoading:false});
+  }
+
   render() {
       return (
         <PaperProvider theme={Theme}>
@@ -85,11 +103,11 @@ class PeminjamanListScreen extends Component {
               {/*end loop*/}
           </List.Section>
           </ScrollView>
-          
-          <Button 
-              mode="contained" 
-              icon="plus" 
-              onPress={() => this.props.navigation.navigate('PeminjamanInsertMapScreen')}
+
+          <Button
+              mode="contained"
+              icon="plus"
+              onPress={() => this.onInsertMap()}
               style={{margin:20}}
           >
             Insert Peminjaman

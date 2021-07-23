@@ -22,15 +22,15 @@ class PeminjamanInsertScreen extends React.Component {
       super(props);
 
       //get redux variable
-      this.state = storeApp.getState();  
+      this.state = storeApp.getState();
       storeApp.subscribe(()=>{
         this.setState(storeApp.getState());
       });
 
       this.state = {
           ...this.state,
-          latitude: null,
-          longitude: null,
+          latitude: this.props.route.params.latitude,
+          longitude: this.props.route.params.longitude,
 
           listMarker: [],
           markerDetail: [],
@@ -39,36 +39,18 @@ class PeminjamanInsertScreen extends React.Component {
   }
 
   componentDidMount() {
-      this.getCurrLocation();
-  }
-
-  async getCurrLocation() {
-    this.setState({isLoading:true});
-
-    let {status} = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      alert('Permission to access location was denied');
-      return;
-    }
-
-    //mengampil lokasi (latitude & longitude)
-    let currLocation = await Location.getCurrentPositionAsync({});
-    let currLatitude = currLocation.coords.latitude;
-    let currLongitude = currLocation.coords.longitude;
-    
-    this.setState({
-      latitude: currLatitude,
-      longitude: currLongitude,
-    });
-
-    //memanggil data marker peta
-    this.getMarker(currLatitude, currLongitude);
+      this.getMarker();
   }
 
   //fungsi marker/tanda di peta
-  getMarker(currLatitude, currLongitude) {
-    let listMarker = [];
+  getMarker() {
+    this.setState({isLoading:true});
 
+    let currLatitude = this.props.route.params.latitude;
+    let currLongitude = this.props.route.params.longitude;
+
+    let listMarker = [];
+    console.log('currLatitude', currLatitude)
     //marker lokasi handphone (marker biru)
     listMarker.push({title: 'Lokasi Saya', location:{latitude:currLatitude, longitude:currLongitude}, currLocation:true});
 
@@ -96,7 +78,7 @@ class PeminjamanInsertScreen extends React.Component {
           }
 
         })
-        
+
         //set state marker & loading berhenti
         this.setState({listMarker: listMarker, isLoading:false});
     })
@@ -185,10 +167,10 @@ class PeminjamanInsertScreen extends React.Component {
                 title={marker.title}
                 onPress={() => marker.currLocation == true ? {} : this.getMarkerDetail(marker)}
               >
-                <IconButton 
-                    icon={marker.currLocation == true ? "map-marker-radius" : "account-circle"} 
+                <IconButton
+                    icon={marker.currLocation == true ? "map-marker-radius" : "account-circle"}
                     color={marker.currLocation == true ? "red" : Theme.colors.primary}
-                    size={35} 
+                    size={35}
                 />
               </MapView.Marker>
               ))}
@@ -197,17 +179,17 @@ class PeminjamanInsertScreen extends React.Component {
 
           <Portal>
               <Dialog
-                visible={this.state.markerDetailShow} 
+                visible={this.state.markerDetailShow}
                 onDismiss={() => this.setState({markerDetailShow:false})}
                 style={Platform.OS == 'android' ? { position:'absolute', bottom:0, width:windowWidth, marginVertical:0, marginHorizontal:0 } : {top:-50, marginHorizontal:5} }
               >
                 <Dialog.Title>{this.state.markerDetail.title}</Dialog.Title>
                 <Dialog.ScrollArea style={{ maxHeight:(windowHeight*0.5)}}>
                   <Text>
-                  NIM : {this.state.markerDetail.nim} 
+                  NIM : {this.state.markerDetail.nim}
                   </Text>
                    <Text>
-                  Jurusan : {this.state.markerDetail.jurusan} 
+                  Jurusan : {this.state.markerDetail.jurusan}
                   </Text>
                 </Dialog.ScrollArea>
 
