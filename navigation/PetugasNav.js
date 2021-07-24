@@ -31,6 +31,10 @@ import ChartPieScreen from '../screen/petugas/laporan/ChartPieScreen';
 import ReportSummaryScreen from '../screen/petugas/laporan/ReportSummaryScreen';
 import ReportDetailScreen from '../screen/petugas/laporan/ReportDetailScreen';
 
+//laporan supabase
+import SupaReportSummaryScreen from '../screen/petugas/laporan/SupaReportSummaryScreen';
+import SupaReportDetailScreen from '../screen/petugas/laporan/SupaReportDetailScreen';
+
 //screen setting: single table
 import SettingScreen from '../screen/petugas/setting/SettingScreen';
 import AnggotaListScreen from '../screen/petugas/setting/AnggotaListScreen';
@@ -41,6 +45,16 @@ import AnggotaUpdateScreen from '../screen/petugas/setting/AnggotaUpdateScreen';
 import BukuListScreen from '../screen/petugas/setting/BukuListScreen';
 import BukuInsertScreen from '../screen/petugas/setting/BukuInsertScreen';
 import BukuUpdateScreen from '../screen/petugas/setting/BukuUpdateScreen';
+
+//screen setting: single table supabase
+import SupaAnggotaListScreen from '../screen/petugas/setting/SupaAnggotaListScreen';
+import SupaAnggotaInsertScreen from '../screen/petugas/setting/SupaAnggotaInsertScreen';
+import SupaAnggotaUpdateScreen from '../screen/petugas/setting/SupaAnggotaUpdateScreen';
+
+//screen setting: 1-many  supabase
+import SupaBukuListScreen from '../screen/petugas/setting/SupaBukuListScreen';
+import SupaBukuInsertScreen from '../screen/petugas/setting/SupaBukuInsertScreen';
+import SupaBukuUpdateScreen from '../screen/petugas/setting/SupaBukuUpdateScreen';
 
 export default function PetugasNav() {
   return (
@@ -132,6 +146,16 @@ export default function PetugasNav() {
 				                  component={ReportDetailScreen}
 				                  options={{headerShown:false}}
 				                />
+				                <Stack.Screen 
+				                  name="SupaReportSummaryScreen"
+				                  component={SupaReportSummaryScreen}
+				                  options={{headerShown:false}}
+				                />
+				                <Stack.Screen 
+				                  name="SupaReportDetailScreen"
+				                  component={SupaReportDetailScreen}
+				                  options={{headerShown:false}}
+				                />
 							</Stack.Navigator>
 						)}
 		        </BottomTab.Screen>
@@ -179,6 +203,38 @@ export default function PetugasNav() {
 						                <Stack.Screen 
 						                  name="BukuUpdateScreen"
 						                  component={BukuUpdateScreen}
+						                  options={{headerShown:false}}
+						                />
+
+
+						                <Stack.Screen 
+						                  name="SupaAnggotaListScreen"
+						                  component={SupaAnggotaListScreen}
+						                  options={{headerShown:false}}
+						                />
+						                <Stack.Screen 
+						                  name="SupaAnggotaInsertScreen"
+						                  component={SupaAnggotaInsertScreen}
+						                  options={{headerShown:false}} 
+						                />
+						                <Stack.Screen 
+						                  name="SupaAnggotaUpdateScreen"
+						                  component={SupaAnggotaUpdateScreen}
+						                  options={{headerShown:false}}
+						                />
+						                <Stack.Screen 
+						                  name="SupaBukuListScreen"
+						                  component={SupaBukuListScreen}
+						                  options={{headerShown:false}}
+						                />
+						                <Stack.Screen 
+						                  name="SupaBukuInsertScreen"
+						                  component={SupaBukuInsertScreen}
+						                  options={{headerShown:false}} 
+						                />
+						                <Stack.Screen 
+						                  name="SupaBukuUpdateScreen"
+						                  component={SupaBukuUpdateScreen}
 						                  options={{headerShown:false}}
 						                />
 									</Stack.Navigator>

@@ -41,7 +41,7 @@ class App extends React.Component {
 				return (
 						<PaperProvider theme={Theme}>
 							<AnggotaNav />
-							<FlashMessage position="top" style={{marginTop:15}} />
+							<FlashMessage position="top" />
 						</PaperProvider>
 					)
 
@@ -50,7 +50,7 @@ class App extends React.Component {
 				return (
 						<PaperProvider theme={Theme}>
 							<PetugasNav />
-							<FlashMessage position="top" style={{marginTop:15}} />
+							<FlashMessage position="top" />
 						</PaperProvider>
 					)
 
@@ -61,7 +61,7 @@ class App extends React.Component {
 			return (
 				<PaperProvider theme={Theme}>
 					<AuthNav />
-					<FlashMessage position="top" style={{marginTop:15}} />
+					<FlashMessage position="top" />
 				</PaperProvider>
 			)
 		}

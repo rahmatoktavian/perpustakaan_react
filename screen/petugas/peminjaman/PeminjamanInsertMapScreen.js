@@ -29,8 +29,8 @@ class PeminjamanInsertScreen extends React.Component {
 
       this.state = {
           ...this.state,
-          latitude: parseFloat(this.props.route.params.latitude),
-          longitude: parseFloat(this.props.route.params.longitude),
+          latitude: 0,
+          longitude: 0,
 
           listMarker: [],
           markerDetail: [],
@@ -39,20 +39,36 @@ class PeminjamanInsertScreen extends React.Component {
   }
 
   componentDidMount() {
-      this.getMarker();
+    this.getCurrLocation();
+  }
+
+  async getCurrLocation() {
+    this.setState({isLoading:true});
+
+    let {status} = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      alert('Permission to access location was denied');
+    } else {
+      //mengampil lokasi (latitude & longitude)
+      let currLocation = await Location.getCurrentPositionAsync({});
+      let currLatitude = currLocation.coords.latitude;
+      let currLongitude = currLocation.coords.longitude;
+
+      this.setState({latitude:currLatitude, longitude:currLongitude});
+      this.getMarker(currLocation.coords);
+    }
+
+    this.setState({isLoading:false});
   }
 
   //fungsi marker/tanda di peta
-  getMarker() {
+  getMarker(currLocation) {
     this.setState({isLoading:true});
-
-    let currLatitude = this.props.route.params.latitude;
-    let currLongitude = this.props.route.params.longitude;
 
     let listMarker = [];
 
     //marker lokasi handphone (marker biru)
-    listMarker.push({title: 'Lokasi Saya', location:{latitude:currLatitude, longitude:currLongitude}, currLocation:true});
+    listMarker.push({title: 'Lokasi Saya', location:{latitude:currLocation.latitude, longitude:currLocation.longitude}, currLocation:true});
 
     //api url & parameter
     let apiurl = BaseUrl()+'/anggota';
@@ -146,6 +162,7 @@ class PeminjamanInsertScreen extends React.Component {
             <Appbar.Content title="Insert Peminjaman" />
           </Appbar.Header>
 
+          {(this.state.latitude != 0 && this.state.longitude != 0) &&
           <View style={{flex:1}}>
             <MapView
               initialRegion={{
@@ -172,6 +189,7 @@ class PeminjamanInsertScreen extends React.Component {
               ))}
             </MapView>
           </View>
+          }
 
           <Portal>
               <Dialog

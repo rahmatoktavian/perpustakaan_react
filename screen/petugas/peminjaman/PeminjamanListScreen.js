@@ -60,24 +60,6 @@ class PeminjamanListScreen extends Component {
       })
   }
 
-  async onInsertMap() {
-    this.setState({isLoading:true});
-
-    let {status} = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      alert('Permission to access location was denied');
-    } else {
-      //mengampil lokasi (latitude & longitude)
-      let currLocation = await Location.getCurrentPositionAsync({});
-      let currLatitude = currLocation.coords.latitude;
-      let currLongitude = currLocation.coords.longitude;
-      
-      this.props.navigation.navigate('PeminjamanInsertMapScreen', {latitude: currLatitude, longitude: currLongitude});
-    }
-
-    this.setState({isLoading:false});
-  }
-
   render() {
       return (
         <PaperProvider theme={Theme}>
@@ -107,7 +89,7 @@ class PeminjamanListScreen extends Component {
           <Button
               mode="contained"
               icon="plus"
-              onPress={() => this.onInsertMap()}
+              onPress={() => this.props.navigation.navigate('PeminjamanInsertMapScreen')}
               style={{margin:20}}
           >
             Insert Peminjaman

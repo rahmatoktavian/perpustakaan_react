@@ -7,14 +7,14 @@ import { Picker } from '@react-native-picker/picker';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing'
 
-import BaseUrl from '../../../config/BaseUrl';
+import supabase from '../../../config/supabase';
 import Theme from '../../../config/Theme';
 
 import dateFormatDB from '../../../component/dateFormatDB';
 import dateFormat from '../../../component/dateFormat';
 import Loading from '../../../component/Loading';
 
-class ReportDetailScreen extends Component {
+class SupaReportDetailScreen extends Component {
 
   constructor(props) {
       super(props);
@@ -28,7 +28,7 @@ class ReportDetailScreen extends Component {
         displayDateTimePickerAkhir: false,
         petugas_data: [],
 
-        petugas_id: '',
+        petugas_id: null,
         nama_anggota: '',
 
         //default: tanggal hari ini
@@ -48,58 +48,31 @@ class ReportDetailScreen extends Component {
     this._unsubscribe();
   }
 
-  getPetugasData() {
+  async getPetugasData() {
       this.setState({isLoading:true});
 
-      //api url & parameter
-      let apiurl = BaseUrl()+'/petugas';
-      const options = {
-          method: 'GET',
-          headers: {'Content-Type': 'application/json'},
-      };
-
-      //memanggil server api
-      fetch(apiurl, options)
-      .then(response => {return response.json()})
-
-      //response dari api
-      .then(responseData => { 
-          //menangkap response api
-          let data = responseData.data;
-
-          //memasukan respon ke state untuk loop data di render
-          this.setState({petugas_data:data, isLoading:false});
-      })
+      //query data supabase
+      const { data, error } = await supabase
+                                    .from('petugas')
+                                    .select('*')
+                                    .order('nama', {ascending:true})
+     
+      //memasukan respon ke state untuk loop data di render
+      this.setState({petugas_data:data, isLoading:false});
   }
 
   async getData() {
-      this.setState({isLoading:true});
+      //query data supabase
+      const { data, error } = await supabase
+                                    .rpc('detil_peminjaman', {
+                                      tanggal_pinjam_mulai_filter: dateFormat(this.state.tanggal_pinjam_mulai),
+                                      tanggal_pinjam_akhir_filter: dateFormat(this.state.tanggal_pinjam_akhir),
+                                      nama_anggota_filter: this.state.nama_anggota,
+                                      petugas_id_filter: this.state.petugas_id,
+                                    });
 
-      //api url & parameter
-      let apiurl = BaseUrl()+'/laporan/detil_peminjaman';
-      const options = {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({
-            tanggal_pinjam_mulai: dateFormat(this.state.tanggal_pinjam_mulai),
-            tanggal_pinjam_akhir: dateFormat(this.state.tanggal_pinjam_akhir),
-            petugas_id: this.state.petugas_id,
-            nama_anggota: this.state.nama_anggota,
-          })
-      };
-
-      //memanggil server api
-      fetch(apiurl, options)
-      .then(response => {return response.json()})
-
-      //response dari api
-      .then(responseData => {
-          //menangkap response api
-          let data = responseData.data;
-          
-          //memasukan respon ke state untuk chart
-          this.setState({data:data, isLoading:false});
-      })
+      //memasukan respon ke state
+      this.setState({data:data, isLoading:false});
   }
 
   async onExportPDF() {
@@ -270,4 +243,4 @@ class ReportDetailScreen extends Component {
   }
 }
 
-export default ReportDetailScreen;
+export default SupaReportDetailScreen;

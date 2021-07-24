@@ -33,6 +33,20 @@ class SettingScreen extends Component {
                 right={props => <List.Icon icon="arrow-right" />}
                 onPress={() => this.props.navigation.navigate('BukuListScreen')}
               />
+              <List.Item
+                key={2}
+                title="Anggota Supabase"
+                left={props => <List.Icon icon="account" />}
+                right={props => <List.Icon icon="arrow-right" />}
+                onPress={() => this.props.navigation.navigate('SupaAnggotaListScreen')}
+              />
+              <List.Item
+                key={3}
+                title="Buku Supabase"
+                left={props => <List.Icon icon="book" />}
+                right={props => <List.Icon icon="arrow-right" />}
+                onPress={() => this.props.navigation.navigate('SupaBukuListScreen')}
+              />
           </List.Section>
           </ScrollView>
 
