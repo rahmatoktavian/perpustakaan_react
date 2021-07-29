@@ -35,7 +35,7 @@ class SupaBukuInsertScreen extends ValidationComponent {
                                     .from('kategori_buku')
                                     .select('*')
                                     .order('nama', {ascending:true})
-
+  
       //memasukan respon ke state untuk loop data di render
       this.setState({kategori_buku_data:data, isLoading:false});
   }
@@ -76,7 +76,7 @@ class SupaBukuInsertScreen extends ValidationComponent {
           icon: 'success',
         });
       }
-      
+
       this.setState({isLoading:false});
       this.props.navigation.navigate('SupaBukuListScreen');
     } else {
