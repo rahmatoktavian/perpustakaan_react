@@ -40,20 +40,6 @@ class LaporanScreen extends Component {
                 right={props => <List.Icon icon="arrow-right" />}
                 onPress={() => this.props.navigation.navigate('ReportDetailScreen')}
               />
-              <List.Item
-                key={4}
-                title="Report Summary Supabase"
-                left={props => <List.Icon icon="folder" />}
-                right={props => <List.Icon icon="arrow-right" />}
-                onPress={() => this.props.navigation.navigate('SupaReportSummaryScreen')}
-              />
-              <List.Item
-                key={3}
-                title="Report Detail Supabase"
-                left={props => <List.Icon icon="newspaper" />}
-                right={props => <List.Icon icon="arrow-right" />}
-                onPress={() => this.props.navigation.navigate('SupaReportDetailScreen')}
-              />
           </List.Section>
           </ScrollView>
 

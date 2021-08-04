@@ -22,7 +22,7 @@ class ReportDetailScreen extends Component {
       this.state = {
         data: [],
 
-        displayFilter: false,
+        displayFilter: true,
 
         displayDateTimePickerMulai: false,
         displayDateTimePickerAkhir: false,
@@ -63,7 +63,7 @@ class ReportDetailScreen extends Component {
       .then(response => {return response.json()})
 
       //response dari api
-      .then(responseData => { 
+      .then(responseData => {
           //menangkap response api
           let data = responseData.data;
 
@@ -96,7 +96,7 @@ class ReportDetailScreen extends Component {
       .then(responseData => {
           //menangkap response api
           let data = responseData.data;
-          
+
           //memasukan respon ke state untuk chart
           this.setState({data:data, isLoading:false});
       })
@@ -160,7 +160,7 @@ class ReportDetailScreen extends Component {
               <DataTable.Title>Tgl Pinjam</DataTable.Title>
               <DataTable.Title>Tgl Batas Kembali</DataTable.Title>
             </DataTable.Header>
-            
+
             {/*loop data state*/}
             {this.state.data && this.state.data.map((row, key) => (
               <DataTable.Row key={key}>
@@ -177,9 +177,9 @@ class ReportDetailScreen extends Component {
 
           {/*export pdf*/}
           {this.state.data &&
-          <Button 
-              mode="outlined" 
-              icon="download" 
+          <Button
+              mode="outlined"
+              icon="download"
               onPress={() => this.onExportPDF()}
               style={{margin:20}}
           >
@@ -192,8 +192,8 @@ class ReportDetailScreen extends Component {
           {/*filter*/}
           <Portal>
             <Dialog
-              visible={this.state.displayFilter} 
-              onDismiss={() => this.setState({displayFilter:false})} 
+              visible={this.state.displayFilter}
+              onDismiss={() => this.setState({displayFilter:false})}
             >
               <Dialog.Title>Filter</Dialog.Title>
               <Dialog.ScrollArea>
